@@ -1,15 +1,10 @@
-use std::fmt::Display;
-
 struct CPU {
     x: usize,
     cycle: usize,
     signal_cycles: Vec<usize>,
     strength_sum: usize,
     crt_width: usize,
-    crt_height: usize,
 }
-
-const SPRITE_WIDTH: usize = 3;
 
 #[derive(Debug)]
 enum Instruction {
@@ -26,13 +21,11 @@ impl CPU {
             signal_cycles,
             strength_sum: 0,
             crt_width: 40,
-            crt_height: 6,
         }
     }
 
     fn cycle_to_x(&self) -> usize {
         let cycle_x_pos = self.cycle % self.crt_width - 1;
-        // println!("cycle: {}, cycle_x_pos: {}", self.cycle, cycle_x_pos);
         cycle_x_pos
     }
 
@@ -107,11 +100,6 @@ fn part1(input: &[Instruction]) -> usize {
 
     cpu.strength_sum
 }
-
-// #[aoc(day10, part2)]
-// fn part2(input: &StrategyGuide) -> usize {
-//     input.rounds.iter().map(score2).sum()
-// }
 
 #[cfg(test)]
 mod tests {
@@ -269,10 +257,4 @@ noop";
         let input = input_generator(INPUT_STR);
         assert_eq!(part1(&input), 13140);
     }
-
-    // #[test]
-    // fn part2_test() {
-    //     let input = input_generator(INPUT_STR);
-    //     assert_eq!(part2(&input), 12);
-    // }
 }
