@@ -68,8 +68,7 @@ impl Node for Directory {
             .map(|node_id| {
                 let item = fs.get_item(node_id);
                 let size = item.get_size(fs);
-                let name = item.get_name();
-                println!("Size for '{}'({}): {}", name, node_id, size);
+                let _name = item.get_name();
                 size
             })
             .sum()
@@ -142,7 +141,6 @@ impl FileSystem {
         match current_directory_item {
             Item::File(_) => panic!("Expected dir, got file"),
             Item::Directory(dir) => {
-                println!("Adding {} to dir {}", item.get_name(), dir.name);
                 let mut new_dir = dir.clone().add_item(new_node_id);
                 new_dir.contents.insert(new_node_id);
                 self.nodes
@@ -223,7 +221,6 @@ fn part1(input: &Vec<Line>) -> usize {
         .filter_map(|item| {
             if let Item::Directory(directory) = item {
                 let size = directory.get_size(&fs);
-                println!("Directory '{}' has size {}", directory.get_name(), size);
                 if size <= 100000 {
                     Some(size)
                 } else {
