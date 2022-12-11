@@ -1,6 +1,14 @@
+use nom::character::complete::digit1;
+use nom::combinator::map_res;
+use nom::IResult;
+
 #[aoc_generator(day11)]
 fn input_generator(input: &str) -> usize {
     1
+}
+
+fn usize_parser(input: &str) -> IResult<&str, usize> {
+    map_res(digit1, str::parse)(input)
 }
 
 #[aoc(day11, part1)]
