@@ -1,5 +1,3 @@
-use core::num;
-
 use nom::branch::alt;
 use nom::bytes::complete::tag;
 use nom::character::complete::{char, digit1, multispace1, space1};
@@ -78,14 +76,13 @@ fn test_whole(input: &str) -> IResult<&str, Test> {
 }
 
 fn monkey_whole(input: &str) -> IResult<&str, Monkey> {
-    let (input, id) = terminated(monkey_id, char('\n'))(input)?;
+    let (input, _) = terminated(monkey_id, char('\n'))(input)?;
     let (input, items) = starting_items(input)?;
     let (input, _) = char('\n')(input)?;
     let (input, operation) = terminated(operation, char('\n'))(input)?;
     let (input, test) = test_whole(input)?;
 
     let monkey = Monkey {
-        id,
         items,
         operation,
         test,
@@ -145,7 +142,6 @@ impl Test {
 
 #[derive(Debug, Clone)]
 struct Monkey {
-    id: usize,
     items: Vec<usize>,
     operation: Operation,
     test: Test,

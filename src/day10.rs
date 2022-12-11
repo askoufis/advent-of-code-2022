@@ -80,7 +80,7 @@ fn input_generator(input: &str) -> Vec<Instruction> {
         .split("\n")
         .map(|line| {
             let parts: Vec<_> = line.split(" ").collect();
-            if (parts.len() > 1) {
+            if parts.len() > 1 {
                 let v = parts[1].parse().expect("Failed to parse");
                 Instruction::Addx { v }
             } else {

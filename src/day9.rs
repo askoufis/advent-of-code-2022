@@ -17,15 +17,6 @@ impl Direction {
             Direction::Right(distance) => *distance,
         }
     }
-
-    fn unit(&self) -> Self {
-        match self {
-            Direction::Up(_) => Self::Up(1),
-            Direction::Down(_) => Self::Down(1),
-            Direction::Left(_) => Self::Left(1),
-            Direction::Right(_) => Self::Right(1),
-        }
-    }
 }
 
 impl From<(&str, usize)> for Direction {
@@ -67,10 +58,6 @@ impl Grid {
             num_knots,
             t_visited: HashSet::from([(0, 0)]),
         }
-    }
-
-    fn head_pos(&self) -> &(isize, isize) {
-        &self.knot_positions[0]
     }
 
     fn knot_pos(&self, knot_index: usize) -> &(isize, isize) {

@@ -1,10 +1,10 @@
 use nom::branch::alt;
-use nom::bytes::complete::{tag, take_until, take_while};
-use nom::character::complete::{alpha0, char, not_line_ending};
+use nom::bytes::complete::{tag, take_until};
+use nom::character::complete::char;
 use nom::character::complete::{anychar, digit1};
 use nom::combinator::map_res;
 use nom::multi::separated_list1;
-use nom::sequence::{delimited, separated_pair, terminated};
+use nom::sequence::{delimited, separated_pair};
 use nom::IResult;
 
 #[derive(Debug)]
@@ -25,7 +25,7 @@ fn parse_crate(input: &str) -> IResult<&str, Option<char>> {
 }
 
 fn parse_crate_space(input: &str) -> IResult<&str, Option<char>> {
-    let (input, result) = tag("   ")(input)?;
+    let (input, _) = tag("   ")(input)?;
 
     IResult::Ok((input, Some(' ')))
 }
