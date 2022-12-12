@@ -1,10 +1,8 @@
 use nom::character::complete::char;
 use nom::multi::separated_list1;
-use nom::{character::complete::digit1, combinator::map_res, sequence::separated_pair, IResult};
+use nom::{character::complete::digit1, sequence::separated_pair, IResult};
 
-fn usize_parser(input: &str) -> IResult<&str, usize> {
-    map_res(digit1, str::parse)(input)
-}
+use crate::parsers::parse_usize;
 
 type Pair = (usize, usize);
 
@@ -52,8 +50,8 @@ impl ElfPair {
 
 fn parse_pair(input: &str) -> IResult<&str, (usize, usize)> {
     let (input, result) = separated_pair(digit1, char('-'), digit1)(input)?;
-    let (_, val1) = usize_parser(result.0)?;
-    let (_, val2) = usize_parser(result.1)?;
+    let (_, val1) = parse_usize(result.0)?;
+    let (_, val2) = parse_usize(result.1)?;
 
     IResult::Ok((input, (val1, val2)))
 }

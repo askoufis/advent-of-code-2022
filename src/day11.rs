@@ -6,13 +6,11 @@ use nom::multi::separated_list1;
 use nom::sequence::terminated;
 use nom::IResult;
 
-fn usize_parser(input: &str) -> IResult<&str, usize> {
-    map_res(digit1, str::parse)(input)
-}
+use crate::parsers::parse_usize;
 
 fn monkey_id(input: &str) -> IResult<&str, usize> {
     let (input, _) = tag("Monkey ")(input)?;
-    let (input, id) = usize_parser(input)?;
+    let (input, id) = parse_usize(input)?;
     let (input, _) = char(':')(input)?;
 
     IResult::Ok((input, id))

@@ -7,15 +7,13 @@ use nom::multi::separated_list1;
 use nom::sequence::{delimited, separated_pair};
 use nom::IResult;
 
+use crate::parsers::parse_usize;
+
 #[derive(Debug)]
 struct Move {
     num_crates: usize,
     from_stack: usize,
     to_stack: usize,
-}
-
-fn usize_parser(input: &str) -> IResult<&str, usize> {
-    map_res(digit1, str::parse)(input)
 }
 
 fn parse_crate(input: &str) -> IResult<&str, Option<char>> {
@@ -39,11 +37,11 @@ fn parse_crates(input: &str) -> IResult<&str, Vec<Vec<Option<char>>>> {
 }
 
 fn parse_move_n(input: &str) -> IResult<&str, usize> {
-    delimited(tag("move "), usize_parser, tag(" from "))(input)
+    delimited(tag("move "), parse_usize, tag(" from "))(input)
 }
 
 fn parse_n_to_n(input: &str) -> IResult<&str, (usize, usize)> {
-    separated_pair(usize_parser, tag(" to "), usize_parser)(input)
+    separated_pair(parse_usize, tag(" to "), parse_usize)(input)
 }
 
 fn parse_move(input: &str) -> IResult<&str, Move> {
