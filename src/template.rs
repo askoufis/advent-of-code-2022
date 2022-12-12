@@ -1,16 +1,16 @@
-#[aoc_generator(day11)]
+#[aoc_generator(day1)]
 fn input_generator(input: &str) -> usize {
     1
 }
 
-#[aoc(day11, part1)]
+#[aoc(day1, part1)]
 fn part1(input: &usize) -> usize {
-    *input
+    1
 }
 
-#[aoc(day11, part2)]
+#[aoc(day1, part2)]
 fn part2(input: &usize) -> usize {
-    *input
+    1
 }
 
 #[cfg(test)]
