@@ -1,8 +1,7 @@
 use nom::branch::alt;
 use nom::bytes::complete::{tag, take_until};
+use nom::character::complete::anychar;
 use nom::character::complete::char;
-use nom::character::complete::{anychar, digit1};
-use nom::combinator::map_res;
 use nom::multi::separated_list1;
 use nom::sequence::{delimited, separated_pair};
 use nom::IResult;
