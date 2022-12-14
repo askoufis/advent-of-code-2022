@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Mul, Sub, SubAssign};
 
 pub struct Vec2 {
     x: isize,
@@ -6,7 +6,7 @@ pub struct Vec2 {
 }
 
 impl Add for Vec2 {
-    type Output = Vec2;
+    type Output = Self;
 
     fn add(self, rhs: Self) -> Self::Output {
         Self::Output {
@@ -24,7 +24,7 @@ impl AddAssign for Vec2 {
 }
 
 impl Sub for Vec2 {
-    type Output = Vec2;
+    type Output = Self;
 
     fn sub(self, rhs: Self) -> Self::Output {
         Self::Output {
@@ -38,5 +38,16 @@ impl SubAssign for Vec2 {
     fn sub_assign(&mut self, rhs: Self) {
         self.x -= rhs.x;
         self.y -= rhs.y;
+    }
+}
+
+impl Mul<isize> for Vec2 {
+    type Output = Self;
+
+    fn mul(self, rhs: isize) -> Self::Output {
+        Self::Output {
+            x: self.x * rhs,
+            y: self.y * rhs,
+        }
     }
 }
