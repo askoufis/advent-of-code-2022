@@ -1,18 +1,19 @@
+use nom::bytes::complete::tag;
+use nom::character::complete::char;
+use nom::multi::separated_list1;
+
+use crate::parsers::parse_usize;
+
 type Calories = usize;
 
 type ElfFoodList = Vec<Vec<Calories>>;
 
 #[aoc_generator(day1)]
 fn input_generator(input: &str) -> ElfFoodList {
-    input
-        .split("\n\n")
-        .map(|items| {
-            items
-                .split("\n")
-                .map(|item| item.parse().expect("Failed to parse string to usize"))
-                .collect()
-        })
-        .collect()
+    separated_list1(tag("\n\n"), separated_list1(char('\n'), parse_usize))(input)
+        .ok()
+        .unwrap()
+        .1
 }
 
 #[aoc(day1, part1)]
@@ -32,4 +33,33 @@ fn part2(input: &ElfFoodList) -> usize {
 }
 
 #[cfg(test)]
-mod tests {}
+mod tests {
+    use super::*;
+
+    const INPUT_STR: &str = r"1000
+2000
+3000
+
+4000
+
+5000
+6000
+
+7000
+8000
+9000
+
+10000";
+
+    #[test]
+    fn part1_test() {
+        let input = input_generator(INPUT_STR);
+        assert_eq!(part1(&input), 24000);
+    }
+
+    #[test]
+    fn part2_test() {
+        let input = input_generator(INPUT_STR);
+        assert_eq!(part2(&input), 45000);
+    }
+}
